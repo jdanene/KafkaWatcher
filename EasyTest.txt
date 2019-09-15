@@ -1,0 +1,36 @@
+// Create a topic
+kafka-topics --zookeeper 127.0.0.1:2181 --topic test2 --create --partitions 1 --replication-factor 1
+
+// List all the topics
+kafka-topics --list --zookeeper localhost:2181
+
+// List all the consumer ID
+kafka-consumer-groups  --list --bootstrap-server localhost:9092
+
+// List all the zones
+zk-shell 127.0.0.1:2181 --run-once "tree /"
+
+// Push data to a topic
+Kafka-console-producer --broker-list 127.0.0.1:9092 --topic first_topic
+
+// Delete a topic
+kafka-topics --zookeeper localhost:2181 --delete --topic test2
+
+
+
+
+Design wise
+	(1) Scalability: Change the data structure from a set to a trie or a b+ tree. Master node looks for new topics on the znode=/brokers/topics. This could contain millions of entries. Once a new topic comes in it forwards round robin style (initially) to its children nodes. The child node launches a modification listener on the new topic, and adds it to the set of topics it manages, it watches znode=/admin/deleted_topics to see if a topic in its managed set has been deleted. Once this happens it stops the modification listener, removes the topic from its watched set. In the future it can notify the master node since the master node will want to load balance work
+	(2) Security: Set security such that new consumer cannot be added to a groupID w/o  valid certification of access. Make it so that only key holder can deleted a modification watcher. 
+	(3) Design Flaw: Well currently the implantation launches a thread to watch each topic, and in this thread a topic consumer runs w/ groupID __<topicName>__. Since we have a limited number of threads and since a consumer can watch multiple topics it makes sense to refactor the ModificationListener.  
+		- The ModifcationListener will have a upper bound on the total number of threads that can be launched	
+		- Initially the modification listener will launch a topic consumer thread on each topic it receives until the number of threads equals the upper bound. These threads will have a set of topics they will be watching. Then it will
+forward topics in round robin style (initially) to the threads to be added to the watch sets. 
+		- black box - so say the KafkaWatcher gets notified that a topic has been deleted. The Kafka watcher notifies the ModificationListener to stop watching a topic, and internally since the listener keeps sets for each topic, it will be able to find the thread that is watching it, and properly shut the topic down (but not the thread)
+		- Problems? (1) round robin not optimal load balance as per usual. (2) Kafka consumers are by definition persistent, so consumer names that map directly to topic makes persistence easy. However, when we move away from this 1-to-1 mapping it becomes tricky. How do we associated a group of topics to 1 consumer groupID and how do we make this information persistent? I think the answer is to directly interact w/ zookeeper just like Kafka does. 
+
+
+
+
+
+

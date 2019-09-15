@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: TestKafkaWatcher
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 5.898 s <<< FAILURE! - in TestKafkaWatcher
+testKafkaWatcher  Time elapsed: 0.013 s  <<< ERROR!
+java.lang.NullPointerException
+	at TestKafkaWatcher.testKafkaWatcher(TestKafkaWatcher.java:109)
+
