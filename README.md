@@ -1,4 +1,4 @@
-If KafkaTopicWatcher does not work make sure Kafka is running, then try `mvn clean`, then try restarting kafka (or your computer if you don't know how to restart kafka properly). If there are a bunch of errors from Kafka internally restart the application -- need to debug this occurence.
+If KafkaTopicWatcher does not work make sure Kafka is running, then try `mvn clean`, then try restarting kafka (or your computer if you don't know how to restart kafka properly). If there are a bunch of errors from Kafka internally restart the application.
 
 
 # What is KafkaTopicWatcher
