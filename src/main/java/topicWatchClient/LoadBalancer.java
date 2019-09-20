@@ -19,7 +19,7 @@ import java.util.*;
  *     StackOverFlow Rebalancer</a> The implementation is in the spirit of the link above but not
  *     the exact implementation.
  *
- * Note: This is not thread safe. Could make it thread save with ReaderWriter
+ * Note: This is not thread safe. Could make it thread save with ReaderWriterLock on `CACHE` 
  */
 public class LoadBalancer {
 
@@ -351,7 +351,7 @@ public class LoadBalancer {
     return removedJobResult;
   }
 
-  /** Overrides the toString() method to show the LoadBalancer.CACHE instead of the LoadBalancer */
+  /** Overrides the toString() method to show the LoadBalancer.CACHE instead of the LoadBalancer object */
   @Override
   public String toString() {
     return CACHE.toString();
