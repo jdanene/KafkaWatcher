@@ -19,26 +19,6 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * TODO: https://stackoverflow.com/questions/14255019/latch-that-can-be-incremented
- * https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Phaser.html
- *
- * <p>So we missed something that we already thought about actually. But as long as the total number
- * of topics < NUMBER_OF_CONSUMER_THREADS then we should have less threads than topics. Once we pass
- * this threshold be can go as usual,
- *
- * <p>So in LoadBalancer(Collection<String> workerIds) -> change this to array we need order! then
- * iterate in order.
- *
- * <p>Change addTopic to iterate up numberOfActiveThreads until it is achieved.
- *
- * <p>- FOR SHUTDOWN call the deregister- numberOfActiveThreads+1 times The goal is to keep all this
- * interal.
- *
- * <p>Consumerid irrelevant just make strictly increasing
- */
-// The only thing we need to save is the topics this ModifiedTopicWatcher wich willl have a name is
-
-/**
  * `ModifiedTopicWatcher` is a subclass of {@link KafkaWatcher} and implements the Runnable class.
  * It watches for modifications by launching a kafka topic consumer on a topic, and continuously
  * poll the topic for new data records.
