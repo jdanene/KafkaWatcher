@@ -20,14 +20,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-/*
+/**
  * A <u>watch</u> is a one-time trigger associated with a znode and a type of event (e.g., data is
  * set in the znode, or the znode is deleted). When an application process registers a watch to
  * receive a notification, the watch is triggered at most once and upon the first event that matches
  * the condition of the watch.
  */
 
-/*
+/**
  * A <u>notification</u> is generated once a watch is triggered by an event. it is a message to the
  * application client that registered the watch to inform this client of the event.
  */
@@ -98,9 +98,8 @@ public class NewAndDeletedTopicWatcher implements Watcher, Runnable {
   /**
    * Overrides Runnable.run() this method is called when the Runnable is executed in a thread
    *
-   * <p>Dealing w/ Interrupts: https://www.yegor256.com/2015/10/20/interrupted-exception.html -
-   * Dealing w/ Sync Locks:
-   * https://docs.oracle.com/javase/tutorial/essential/concurrency/locksync.html
+   * <p>Dealing w/ Interrupts: <a href="https://www.yegor256.com/2015/10/20/interrupted-exception.html">Java Interrupts</a>
+   * <p>Dealing w/ Sync Locks: <a href="https://docs.oracle.com/javase/tutorial/essential/concurrency/locksync.html">Java Locks</a>
    */
   @Override
   public void run() {
@@ -218,7 +217,7 @@ public class NewAndDeletedTopicWatcher implements Watcher, Runnable {
 
   /**
    * Adds children (or in this context `topics`) to existing list of children and returns the
-   * children that were deleted or added from the last iteration.
+   * children that were deleted or added from the last iteration. Also updates the `topicsCache`. 
    *
    * @param topicNames list of topics from current iteration
    */
@@ -289,7 +288,7 @@ public class NewAndDeletedTopicWatcher implements Watcher, Runnable {
         }
       };
 
-
+  
   public static class Builder {
     private String zookeeperHostPort;
     private NewAndDeletedTopicWatcher.Executor executor;
