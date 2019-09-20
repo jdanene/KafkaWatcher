@@ -9,7 +9,7 @@ for each of these 3 types of state changes.
 
 # High Level Architecture
 
-`KafkaWatcher` is the primary containter for the KafkaWatcher application. `NewAndDeletedTopicWatcher` and `ModifiedTopicWatcher` are sub-containers. 
+`KafkaWatcher` is the primary containter for the KafkaTopicWatcher application. `NewAndDeletedTopicWatcher` and `ModifiedTopicWatcher` are sub-containers. 
 
 It takes as parameters
 - Host:Port address of the ZooKeeper service for Kafka Cluster
