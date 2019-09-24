@@ -20,12 +20,14 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * `ModifiedTopicWatcher` is a subclass of {@link KafkaWatcher} and implements the Runnable class.
- * It watches for modifications by launching a kafka topic consumer on a topic, and continuously
- * poll the topic for new data records.
+ * It watches for modifications (aka an existing Kafka Topic recieving a new message) by launching
+ * a {@link ModifiedTopicWatcher#ConsumerRunnable} thread and within that thread a Kafka consumer watches 
+ * a `topicSet` of topics,  and continuously polls the set of topics for new data records. 
+ * Calling `modifiedTopicExec` each time new Kafka messages arrive. 
  *
- * <p>TODO: Figure out what happens w/ multiple servers TODO: Set security so that new consumer
- * can't be added to existing groupID after already started. Also only key holder can delete
- * consumer, so set security on groupID.
+ * ToDo: Figure out what happens w/ multiple servers 
+ * ToDo: Set security so that new consumer can't be added to existing groupID after already started. 
+ *   Also only key holder can delete consumer, so set security on groupID.
  */
 class ModifiedTopicWatcher implements Runnable {
 
