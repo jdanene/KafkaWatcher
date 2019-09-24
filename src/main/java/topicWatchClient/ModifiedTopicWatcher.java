@@ -22,7 +22,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * `ModifiedTopicWatcher` is a subclass of {@link KafkaWatcher} and implements the Runnable class.
  * It watches for modifications (aka an existing Kafka Topic recieving a new message) by launching
  * a {@link ModifiedTopicWatcher#ConsumerRunnable} thread and within that thread a Kafka consumer watches 
- * a `topicSet` of topics,  and continuously polls the set of topics for new data records. 
+ * a `topicSet` of topics,  and this conumser continuously polls the set of topics for new data records. 
  * Calling `modifiedTopicExec` each time new Kafka messages arrive. 
  *
  * ToDo: Figure out what happens w/ multiple servers 
