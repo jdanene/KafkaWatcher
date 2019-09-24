@@ -101,7 +101,7 @@ class ModifiedTopicWatcher implements Runnable {
             newTopicSignal = false;
           }
 
-          // run removeTopic on `newTopicInputData`
+          // run removeTopic on `deletedTopicInputData`
           if (deletedTopicSignal) {
             System.out.println("\t[ModifiedTopicWatcher#run()] Deleted topics detected in consumer group: "+groupID);
             _removeTopic(deletedTopicInputData);
